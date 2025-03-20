@@ -39,12 +39,14 @@
         <div class="row">
             <!-- Left Panel: Terrain Status -->
             <div class="col-md-3 p-3 bg-light border-end" id="status-panel">
-                <h4 class="text-center fw-bold">
-                    <i class="bi bi-globe2"></i> Terrain Status
-                </h4>
-                <div class="card shadow-sm">
+                <!-- Weather Conditions Card -->
+                <div class="card shadow-sm mb-3">
                     <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
+                        <h5 class="text-center fw-bold mb-3">
+                            <i class="bi bi-cloud-sun"></i> Weather Conditions
+                        </h5>
+
+                        <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-thermometer-half text-danger me-2" style="font-size: 1.5rem;"></i>
                             <div>
                                 <h6 class="mb-0">Temperature</h6>
@@ -52,7 +54,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center mb-3">
+                        <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-wind text-primary me-2" style="font-size: 1.5rem;"></i>
                             <div>
                                 <h6 class="mb-0">Wind Speed</h6>
@@ -60,7 +62,7 @@
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center mb-3">
+                        <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-droplet text-info me-2" style="font-size: 1.5rem;"></i>
                             <div>
                                 <h6 class="mb-0">Humidity</h6>
@@ -75,8 +77,17 @@
                                 <p id="air-pressure" class="card-text text-muted">Loading...</p>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="d-flex align-items-center">
+                <!-- Soil Conditions Card -->
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="text-center fw-bold mb-3">
+                            <i class="bi bi-flower1"></i> Soil Conditions
+                        </h5>
+
+                        <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-cloud-rain text-primary me-2" style="font-size: 1.5rem;"></i>
                             <div>
                                 <h6 class="mb-0">Soil Moisture</h6>
@@ -94,6 +105,7 @@
                     </div>
                 </div>
             </div>
+
 
 
             <!-- Main Content: Map -->
