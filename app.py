@@ -12,11 +12,10 @@ API_KEY = "c4d67afa-6289-4a54-9a05-880b7069469c"
 
 # Sample alert messages with corresponding solutions
 FAKE_ALERTS = {
-    "⚠ High soil moisture detected!": "Try Syngenta’s biologicals to improve soil health and moisture retention.",
-    "🔥 Possible fire hazard nearby!": "Use Syngenta's solutions to create fire-resistant crops and reduce risk.",
-    "💨 Strong winds approaching the farm!": "Consider Syngenta's windbreak products to protect your crops.",
-    "🌧 Heavy rainfall expected soon!": "Protect your crops from excess water with Syngenta’s rain-tolerant biologicals.",
-    "🐛 Pest infestation detected in Zone 3!": "Use Syngenta’s biological pest control solutions to safely eliminate pests."
+    "⚠️ High soil moisture detected!": "Use Syngenta’s Stress Booster",
+    "🌧️ Heavy rainfall expected soon!": "Use Syngenta’s Stress Booster",
+    "♨️ High temperature detected!": "Use Syngenta’s Stress Booster",
+    "🐛 Pest infestation detected!": "Use Syngenta’s Stress Booster"
 }
 
 

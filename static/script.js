@@ -41,10 +41,12 @@ function fetchNotification() {
             <li>
                 <div class="card mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">🚨 Alert</h6>
+                        <h5 class="card-title">🚨 Alert</h5>
                         <p>${notificationMessage}</p>
-                        <h6 class="card-subtitle mb-2">🩹 Solution:</h6>
+                        <h5 class="card-subtitle mb-2">🩹 Solution</h5>
                         <p>${solutionMessage}</p>
+                        <h5 class="card-subtitle mb-2">📊 Impact</h5>
+                        <p>Yield increas of +5%</p>
                         <div class="like-dislike-container">
                             <button class="btn btn-success btn-sm like-btn" style="background-color: var(--primary-color); border: none;">👍 <span class="like-count">${likeCount}</span></button>
                             <button class="btn btn-danger btn-sm dislike-btn" style="background-color: var(--red-color); border: none;">👎 <span class="dislike-count">${dislikeCount}</span></button>
@@ -63,7 +65,7 @@ function fetchNotification() {
             <div class="toast align-items-center border-0 mb-2 toast-container" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
-                        <strong>🚨 Alert:</strong> ${notificationMessage}
+                        <h4>🚨 Alert </h4> ${notificationMessage}
                     </div>
                     <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
