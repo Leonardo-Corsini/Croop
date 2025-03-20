@@ -37,7 +37,7 @@ def get_notification():
     })
 
 
-@app.route("/get_corn_risk")
+@app.route("/get_corn_risk", methods=["GET"])
 def get_corn_risk():
     url = "https://services.cehub.syngenta-ais.com/api/DiseaseRisk/CornRisk_V2"
     time = datetime.datetime.now()
@@ -46,9 +46,13 @@ def get_corn_risk():
         "ApiKey": API_KEY,  # API Key nel header
         "Accept": "application/json"
     }
+    # Extract parameters from the request
+    latitude = request.args.get("latitude", 47, type=float)  # Default to 47 if not provided
+    longitude = request.args.get("longitude", 7, type=float)  # Default to 7 if not provided
+
     parameters = {
-        "latitude": 47,
-        "longitude": 7,
+        "latitude": latitude,
+        "longitude": longitude,
         "startDate": time - delta_15_minutes,
         "endDate": time,
         "modelId": "TarSpot",
@@ -74,7 +78,7 @@ def send_alert():
     return jsonify({"status": "success", "message": "Alert received and logged."})
 
 
-@app.route("/get_soil_mosture")
+@app.route("/get_soil_params", methods=["GET"])
 def get_soil_params():
     url = "https://services.cehub.syngenta-ais.com/api/Forecast/Nowcast"
     time = datetime.datetime.now()
@@ -83,9 +87,13 @@ def get_soil_params():
         "ApiKey": API_KEY,  # API Key nel header
         "Accept": "application/json"
     }
+    # Extract parameters from the request
+    latitude = request.args.get("latitude", 47, type=float)  # Default to 47 if not provided
+    longitude = request.args.get("longitude", 7, type=float)  # Default to 7 if not provided
+
     parameters = {
-        "latitude": 47,
-        "longitude": 7,
+        "latitude": latitude,
+        "longitude": longitude,
         "startDate": time - delta_15_minutes,
         "endDate": time,
         "measureLabel": "Soilmoisture_0to10cm_Hourly (vol%);"

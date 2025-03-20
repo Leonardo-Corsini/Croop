@@ -88,7 +88,6 @@ body, html {
     background-color: var(--red-color);
     color: white;
     border: none;
-    padding: 5px 10px;
     border-radius: 50%;
     cursor: pointer;
     font-weight: bold;

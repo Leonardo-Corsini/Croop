@@ -145,6 +145,17 @@ function fetchStatus() {
         $("#air-pressure").text(air_pressure);
 
     });
+
+    $.get("/get_soil_params", { latitude: lat, longitude: lon }, function(data) {
+        
+        // Extract data from the response or provide default values
+        var soil_moisture = data["Soilmoisture_0to10cm_Hourly"] + " %";
+        var soil_temp = data["Soiltemperature_0to10cm_Hourly"] + " °C";
+
+        // Update the terrain status in the card
+        $("#soil-moisture").text(soil_moisture);
+        $("#soil-temp").text(soil_temp);
+    });
 }
 
 // Fetch notification and status
