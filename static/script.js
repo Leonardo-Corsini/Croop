@@ -54,7 +54,7 @@ function fetchNotification() {
 
         // Create a new toast element
         var toast = `
-            <div class="toast align-items-center text-bg-warning border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast align-items-center border-0 mb-2 toast-container" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body">
                         <strong>🚨 Alert:</strong> ${notificationMessage}
