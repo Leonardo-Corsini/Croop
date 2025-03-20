@@ -1,10 +1,13 @@
 // Define map globally
 var map;
+var lat = 47.48262506267074;
+var lon = 8.923781163261475;
+
+// Initialize notification count
+let notificationCount = 0;
 
 $(document).ready(function () {
-    var lat = 47.48262506267074;
-    var lon = 8.923781163261475;
-
+    
     // Initialize map globally
     map = L.map('map').setView([lat, lon], 15);
 
@@ -13,16 +16,19 @@ $(document).ready(function () {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     }).addTo(map);
 
-    // Add a marker for the farm location
-    L.marker([lat, lon]).addTo(map).bindPopup("Amir Location").openPopup();
+    // Add a marker to the map
+    L.marker([lat, lon]).addTo(map);
 
-    // Load terrain status (mock data for now)
-    $("#terrain-status").text("Soil moisture: 70% | Temperature: 24°C | Healthy");
-});
+    //Add a polygon to the map 500 x 500 meters
+    L.polygon([
+        [47.481668, 8.923835],
+        [47.479442, 8.927697],
+        [47.480000, 8.928738],
+        [47.482248, 8.924693]
+    ]).addTo(map);
+    });
 
-// Initialize notification count
-let notificationCount = 0;
-
+// Function to fetch the notification
 function fetchNotification() {
     $.get("/get_notification", function(data) {
         var notificationMessage = data.problem;
@@ -82,8 +88,6 @@ function fetchNotification() {
     });
 }
 
-
-
 // Event listener to remove notification when close button is clicked
 $(document).on("click", ".close-btn", function () {
     $(this).closest('li').remove();
@@ -103,24 +107,7 @@ $(document).on("click", ".close-btn", function () {
     }
 });
 
-// Fetch a notification every 10 seconds
-setInterval(fetchNotification, 5000);
-
-
-
-
-
-document.getElementById('alert-btn').addEventListener('click', function () {
-    const alertType = document.getElementById('alert-type').value;
-    const alertMessage = document.getElementById('alert-message').value;
-
-    // Show the alert modal
-    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
-    alertModal.show();
-});
-
-
-
+// Event listener to clear all notifications
 document.getElementById('clear-notifications-btn').addEventListener('click', function () {
     const notificationList = document.getElementById('notification-list');
     notificationList.innerHTML = ''; // Clear all notifications
@@ -134,9 +121,16 @@ document.getElementById('clear-notifications-btn').addEventListener('click', fun
     badge.hide(); // Hide the badge when there are no notifications
 });
 
+// Event listener to show the alert modal
+document.getElementById('alert-btn').addEventListener('click', function () {
+    // Show the alert modal
+    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+    alertModal.show();
+});
+
 // Function to fetch the status of the terrain
 function fetchStatus() {
-    $.get("/get_status", function(data) {
+    $.get("/get_status", { latitude: lat, longitude: lon }, function(data) {
         
         // Extract data from the response or provide default values
         var temperature = data["Temperature_15Min"] + " °C";
@@ -153,5 +147,7 @@ function fetchStatus() {
     });
 }
 
+// Fetch notification and status
+setInterval(fetchNotification, 15000);
 setInterval(fetchStatus, 1000);
 

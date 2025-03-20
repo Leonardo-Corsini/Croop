@@ -55,9 +55,14 @@ def get_status():
         "ApiKey": API_KEY,  # API Key nel header
         "Accept": "application/json"
     }
+
+    # Extract parameters from the request
+    latitude = request.args.get("latitude", 47, type=float)  # Default to 47 if not provided
+    longitude = request.args.get("longitude", 7, type=float)  # Default to 7 if not provided
+
     parameters = {
-        "latitude": 47,
-        "longitude": 7,
+        "latitude": latitude,
+        "longitude": longitude,
         "startDate": time - delta_15_minutes,
         "endDate": time,
         "suppler": "Meteoblue",
