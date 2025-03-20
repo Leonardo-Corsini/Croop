@@ -36,6 +36,33 @@ def get_notification():
         "solution": solution
     })
 
+@app.route("/get_corn_risk")
+def get_corn_risk():
+    url = "https://services.cehub.syngenta-ais.com/api/DiseaseRisk/CornRisk_V2"
+    time = datetime.datetime.now()
+    delta_15_minutes = datetime.timedelta(hours=0, minutes=15)
+    headers = {
+        "ApiKey": API_KEY,  # API Key nel header
+        "Accept": "application/json"
+    }
+    parameters = {
+        "latitude": 47,
+        "longitude": 7,
+        "startDate": time - delta_15_minutes,
+        "endDate": time,
+        "modelId": "TarSpot",
+        "format": "json"
+    }
+    try:
+        response = requests.get(url, headers=headers, params=parameters, timeout=10)
+        response.raise_for_status()  # Lancia un errore se lo status code non è 200
+        result = {"value": entry["value"] for entry in response.json()}
+
+        return jsonify(result)
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}, status=500)
+
 
 @app.route("/send_alert", methods=["POST"])
 def send_alert():
@@ -44,6 +71,36 @@ def send_alert():
     print(f"Received alert: {alert_data['message']} at {alert_data['coordinates']}")
     # Here you can update your backend data or log the alert
     return jsonify({"status": "success", "message": "Alert received and logged."})
+
+
+@app.route("/get_soil_mosture")
+def get_soil_params():
+    url = "https://services.cehub.syngenta-ais.com/api/Forecast/Nowcast"
+    time = datetime.datetime.now()
+    delta_15_minutes = datetime.timedelta(hours=0, minutes=15)
+    headers = {
+        "ApiKey": API_KEY,  # API Key nel header
+        "Accept": "application/json"
+    }
+    parameters = {
+        "latitude": 47,
+        "longitude": 7,
+        "startDate": time - delta_15_minutes,
+        "endDate": time,
+        "measureLabel": "Soilmoisture_0to10cm_Hourly (vol%);"
+                        "Soiltemperature_0to10cm_Hourly (C);",
+        "suppler": "Meteoblue",
+        "format": "json"
+    }
+    try:
+        response = requests.get(url, headers=headers, params=parameters, timeout=10)
+        response.raise_for_status()  # Lancia un errore se lo status code non è 200
+        result = {entry["measureLabel"].split(" ")[0]: entry["value"] for entry in response.json()}
+
+        return jsonify(result)
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}, status=500)
 
 
 @app.route("/get_status", methods=["GET"])
@@ -65,6 +122,10 @@ def get_status():
         "longitude": longitude,
         "startDate": time - delta_15_minutes,
         "endDate": time,
+        "measureLabel": "Temperature_15Min (C);"
+                        "WindSpeed_15Min (m/s);"
+                        "WindDirection_15Min;"
+                        "HumidityRel_15Min (pct)",
         "suppler": "Meteoblue",
         "format": "json"
     }
