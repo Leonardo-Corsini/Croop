@@ -80,9 +80,9 @@ def send_alert():
 
 @app.route("/get_soil_params", methods=["GET"])
 def get_soil_params():
-    url = "https://services.cehub.syngenta-ais.com/api/Forecast/Nowcast"
+    url = "https://services.cehub.syngenta-ais.com/api/Forecast/ShortRangeForecastHourly"
     time = datetime.datetime.now()
-    delta_15_minutes = datetime.timedelta(hours=1, minutes=00)
+    delta_60_minutes = datetime.timedelta(hours=0, minutes=60)
     headers = {
         "ApiKey": API_KEY,  # API Key nel header
         "Accept": "application/json"
@@ -94,7 +94,7 @@ def get_soil_params():
     parameters = {
         "latitude": latitude,
         "longitude": longitude,
-        "startDate": time - delta_15_minutes,
+        "startDate": time - delta_60_minutes,
         "endDate": time,
         "measureLabel": "Soilmoisture_0to10cm_Hourly (vol%);"
                         "Soiltemperature_0to10cm_Hourly (C);",
@@ -103,6 +103,7 @@ def get_soil_params():
     }
     try:
         response = requests.get(url, headers=headers, params=parameters, timeout=10)
+        print(response.json())
         response.raise_for_status()  # Lancia un errore se lo status code non è 200
         result = {entry["measureLabel"].split(" ")[0]: entry["value"] for entry in response.json()}
 
