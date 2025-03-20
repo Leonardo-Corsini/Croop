@@ -68,10 +68,7 @@ def get_status():
         response.raise_for_status()  # Lancia un errore se lo status code non è 200
         result = {entry["measureLabel"].split(" ")[0]: entry["value"] for entry in response.json()}
 
-        # Output in formato JSON
-        json_output = json.dumps(result, indent=4)
-
-        return json_output
+        return jsonify(result)
 
     except requests.exceptions.RequestException as e:
         return jsonify({"error": str(e)}, status=500)

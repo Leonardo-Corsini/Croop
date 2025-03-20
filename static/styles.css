@@ -21,7 +21,7 @@ body, html {
     background-color: white;
     border: 2px solid rgb(255, 183, 0);
     color: red;
-    border-radius: 50%;
+    border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

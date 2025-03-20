@@ -103,15 +103,21 @@ document.getElementById('clear-notifications-btn').addEventListener('click', fun
 // Function to fetch the status of the terrain
 function fetchStatus() {
     $.get("/get_status", function(data) {
+        //Log the data to the console
+        console.log(data);
+        
         // Extract data from the response or provide default values
-        var soilMoisture = data.soil_moisture !== undefined ? `${data.soil_moisture}%` : "Data unavailable";
-        var temperature = data.temperature !== undefined ? `${data.temperature}°C` : "Data unavailable";
-        var healthStatus = data.health_status !== undefined ? data.health_status : "Data unavailable";
+        var temperature = data["Temperature_15Min"] + " °C";
+        var wind_speed = data["WindSpeed_15Min"] + " m/s";
+        var humidity = data["HumidityRel_15Min"] + " %";
+        var air_pressure = data["Airpressure_15Min"] + " hPa";
 
         // Update the terrain status in the card
-        $("#soil-moisture").text(soilMoisture);
         $("#temperature").text(temperature);
-        $("#health-status").text(healthStatus);
+        $("#wind-speed").text(wind_speed);
+        $("#humidity").text(humidity);
+        $("#air-pressure").text(air_pressure);
+
     });
 }
 
