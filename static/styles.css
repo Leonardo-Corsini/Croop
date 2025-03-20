@@ -1,0 +1,116 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+#map-container {
+    height: 100vh;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+#alert-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border: 2px solid rgb(255, 183, 0);
+    color: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Hover & Active Effects */
+#alert-btn:hover {
+    background-color: red;
+    color: white;
+}
+
+#notification-card h5 {
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#notification-card {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 300px;  /* Adjust the width here */
+    max-height: 80vh;  /* Limit the height */
+    overflow-y: auto;  /* Enable scrolling if content exceeds max height */
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+}
+
+#notification-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#notification-list li {
+    margin-bottom: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; /* Stack the content vertically */
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content horizontally */
+    position: relative;
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for card effect */
+}
+
+#notification-list li h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#notification-list li p {
+    margin: 10px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+#notification-list .close-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#notification-list .close-btn:hover {
+    background-color: darkred;
+}
+
+
+
+
+
