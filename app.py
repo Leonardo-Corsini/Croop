@@ -36,6 +36,7 @@ def get_notification():
         "solution": solution
     })
 
+
 @app.route("/get_corn_risk")
 def get_corn_risk():
     url = "https://services.cehub.syngenta-ais.com/api/DiseaseRisk/CornRisk_V2"
@@ -77,7 +78,7 @@ def send_alert():
 def get_soil_params():
     url = "https://services.cehub.syngenta-ais.com/api/Forecast/Nowcast"
     time = datetime.datetime.now()
-    delta_15_minutes = datetime.timedelta(hours=0, minutes=15)
+    delta_15_minutes = datetime.timedelta(hours=1, minutes=00)
     headers = {
         "ApiKey": API_KEY,  # API Key nel header
         "Accept": "application/json"
@@ -125,7 +126,8 @@ def get_status():
         "measureLabel": "Temperature_15Min (C);"
                         "WindSpeed_15Min (m/s);"
                         "WindDirection_15Min;"
-                        "HumidityRel_15Min (pct)",
+                        "HumidityRel_15Min (pct);"
+                        "Airpressure_15Min (hPa)",
         "suppler": "Meteoblue",
         "format": "json"
     }
