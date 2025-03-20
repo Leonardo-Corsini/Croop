@@ -20,18 +20,20 @@ $(document).ready(function () {
     $("#terrain-status").text("Soil moisture: 70% | Temperature: 24°C | Healthy");
 });
 
+// Initialize notification count
+let notificationCount = 0;
 
-// Function to fetch a notification and its solution
 function fetchNotification() {
     $.get("/get_notification", function(data) {
         var notificationMessage = data.problem;
         var solutionMessage = data.solution;
 
+        // Create a notification item for the list
         var notificationItem = `
             <li>
                 <div class="card mb-2">
                     <div class="card-body">
-                        <h6 class="card-title">🚨 Alert</h5>
+                        <h6 class="card-title">🚨 Alert</h6>
                         <p>${notificationMessage}</p>
                         <h6 class="card-subtitle mb-2">🩹 Solution:</h6>
                         <p>${solutionMessage}</p>
@@ -41,6 +43,7 @@ function fetchNotification() {
             </li>
         `;
 
+        // Prepend notification item to the list
         $("#notification-list").prepend(notificationItem);
 
         // Create a new toast element
@@ -63,13 +66,41 @@ function fetchNotification() {
         var bootstrapToast = new bootstrap.Toast(toastElement);
         bootstrapToast.show();
 
+        // Update notification count
+        notificationCount++;
+        
+        // Update badge number on the bell icon
+        const badge = $('#notification-badge');
+        badge.text(notificationCount);
+
+        // Show the badge if there are notifications, otherwise hide it
+        if (notificationCount > 0) {
+            badge.show();
+        } else {
+            badge.hide();
+        }
     });
 }
+
 
 
 // Event listener to remove notification when close button is clicked
 $(document).on("click", ".close-btn", function () {
     $(this).closest('li').remove();
+
+    // Update notification count
+    notificationCount--;
+        
+    // Update badge number on the bell icon
+    const badge = $('#notification-badge');
+    badge.text(notificationCount);
+
+    // Show the badge if there are notifications, otherwise hide it
+    if (notificationCount > 0) {
+        badge.show();
+    } else {
+        badge.hide();
+    }
 });
 
 // Fetch a notification every 10 seconds
@@ -93,6 +124,14 @@ document.getElementById('alert-btn').addEventListener('click', function () {
 document.getElementById('clear-notifications-btn').addEventListener('click', function () {
     const notificationList = document.getElementById('notification-list');
     notificationList.innerHTML = ''; // Clear all notifications
+
+    // Reset the notification count
+    notificationCount = 0;
+
+    // Update the badge
+    const badge = $('#notification-badge');
+    badge.text(notificationCount);
+    badge.hide(); // Hide the badge when there are no notifications
 });
 
 // Function to fetch the status of the terrain
