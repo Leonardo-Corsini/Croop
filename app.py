@@ -31,9 +31,13 @@ def get_notification():
     fake_alert = random.choice(list(FAKE_ALERTS.keys()))
     solution = FAKE_ALERTS[fake_alert]
     timestamp = time.strftime("%H:%M:%S")  # Add a timestamp
+    like_count = random.randint(0, 200)
+    dislike_count = random.randint(0, 200)
     return jsonify({
         "problem": f"{timestamp} - {fake_alert}",
-        "solution": solution
+        "solution": solution,
+        "like_count": like_count,
+        "dislike_count": dislike_count
     })
 
 

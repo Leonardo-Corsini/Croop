@@ -33,6 +33,8 @@ function fetchNotification() {
     $.get("/get_notification", function(data) {
         var notificationMessage = data.problem;
         var solutionMessage = data.solution;
+        var likeCount = data.like_count;
+        var dislikeCount = data.dislike_count;
         
         // Create a notification item for the list
         var notificationItem = `
@@ -44,15 +46,15 @@ function fetchNotification() {
                         <h6 class="card-subtitle mb-2">🩹 Solution:</h6>
                         <p>${solutionMessage}</p>
                         <div class="like-dislike-container">
-                            <button class="btn btn-success btn-sm like-btn" style="background-color: var(--primary-color); border: none;">👍 <span class="like-count">0</span></button>
-                            <button class="btn btn-danger btn-sm dislike-btn" style="background-color: var(--red-color); border: none;">👎 <span class="dislike-count">0</span></button>
+                            <button class="btn btn-success btn-sm like-btn" style="background-color: var(--primary-color); border: none;">👍 <span class="like-count">${likeCount}</span></button>
+                            <button class="btn btn-danger btn-sm dislike-btn" style="background-color: var(--red-color); border: none;">👎 <span class="dislike-count">${dislikeCount}</span></button>
                         </div>
                         <button class="close-btn btn btn-danger btn-md">X</button>
                     </div>
                 </div>
-            </li>
+            </li>   
         `;
-
+        
         // Prepend notification item to the list
         $("#notification-list").prepend(notificationItem);
 
@@ -91,20 +93,20 @@ function fetchNotification() {
         }
     });
 
-    // Event delegation for dynamically added elements
-    $(document).on("click", ".like-btn", function() {
-        var likeCountSpan = $(this).find(".like-count");
-        var currentCount = parseInt(likeCountSpan.text());
-        likeCountSpan.text(currentCount + 1);
-    });
-
-    $(document).on("click", ".dislike-btn", function() {
-        var dislikeCountSpan = $(this).find(".dislike-count");
-        var currentCount = parseInt(dislikeCountSpan.text());
-        dislikeCountSpan.text(currentCount + 1);
-    });
 
 }
+// Event delegation for dynamically added elements
+$(document).on("click", ".like-btn", function() {
+    var likeCountSpan = $(this).find(".like-count");
+    var currentCount = parseInt(likeCountSpan.text());
+    likeCountSpan.text(currentCount + 1);
+});
+
+$(document).on("click", ".dislike-btn", function() {
+    var dislikeCountSpan = $(this).find(".dislike-count");
+    var currentCount = parseInt(dislikeCountSpan.text());
+    dislikeCountSpan.text(currentCount + 1);
+});
 
 // Event listener to remove notification when close button is clicked
 $(document).on("click", ".close-btn", function () {
