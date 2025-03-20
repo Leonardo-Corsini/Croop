@@ -19,9 +19,11 @@ FAKE_ALERTS = {
     "🐛 Pest infestation detected in Zone 3!": "Use Syngenta’s biological pest control solutions to safely eliminate pests."
 }
 
+
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/get_notification")
 def get_notification():
@@ -33,6 +35,7 @@ def get_notification():
         "problem": f"{timestamp} - {fake_alert}",
         "solution": solution
     })
+
 
 @app.route("/send_alert", methods=["POST"])
 def send_alert():
@@ -63,11 +66,10 @@ def get_status():
     try:
         response = requests.get(url, headers=headers,params=parameters, timeout=10)
         response.raise_for_status()  # Lancia un errore se lo status code non è 200
-        result = {entry["measureLabel"]: entry["value"] for entry in response.json()}
+        result = {entry["measureLabel"].split(" ")[0]: entry["value"] for entry in response.json()}
 
         # Output in formato JSON
         json_output = json.dumps(result, indent=4)
-        print(json_output)
 
         return json_output
 
