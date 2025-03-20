@@ -124,3 +124,22 @@ body, html {
     pointer-events: none; /* Avoids blocking clicks */
 }
 
+.btn-primary {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: var(--red-color);
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: var(--red-color)
+}
