@@ -12,10 +12,10 @@ API_KEY = "c4d67afa-6289-4a54-9a05-880b7069469c"
 
 # Sample alert messages with corresponding solutions
 FAKE_ALERTS = {
-    "⚠️ High soil moisture detected!": "Use Syngenta’s Stress Booster",
-    "🌧️ Heavy rainfall expected soon!": "Use Syngenta’s Stress Booster",
-    "♨️ High temperature detected!": "Use Syngenta’s Stress Booster",
-    "🐛 Pest infestation detected!": "Use Syngenta’s Stress Booster"
+    "High soil moisture detected!": ("⚠️","Use Syngenta’s Stress Booster"),
+    "Heavy rainfall expected soon!": ("🌧️","Use Syngenta’s Stress Booster"),
+    "High temperature detected!": ("♨️","Use Syngenta’s Stress Booster"),
+    "Pest infestation detected!": ("🐛","Use Syngenta’s Stress Booster"),
 }
 
 
@@ -28,12 +28,14 @@ def index():
 def get_notification():
     """Returns a random fictitious notification with a solution."""
     fake_alert = random.choice(list(FAKE_ALERTS.keys()))
-    solution = FAKE_ALERTS[fake_alert]
+    icon, solution = FAKE_ALERTS[fake_alert]
     timestamp = time.strftime("%H:%M:%S")  # Add a timestamp
     like_count = random.randint(0, 200)
     dislike_count = random.randint(0, 200)
     return jsonify({
-        "problem": f"{timestamp} - {fake_alert}",
+        "timestamp": timestamp,
+        "problem": f"{fake_alert}",
+        "icon": icon,
         "solution": solution,
         "like_count": like_count,
         "dislike_count": dislike_count
