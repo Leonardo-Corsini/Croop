@@ -42,8 +42,30 @@ function fetchNotification() {
         `;
 
         $("#notification-list").prepend(notificationItem);
+
+        // Create a new toast element
+        var toast = `
+            <div class="toast align-items-center text-bg-warning border-0 mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <strong>🚨 Alert:</strong> ${notificationMessage}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        `;
+
+        // Append the toast to the container
+        $("#toast-container").append(toast);
+
+        // Initialize and show the toast
+        var toastElement = $(".toast").last()[0];
+        var bootstrapToast = new bootstrap.Toast(toastElement);
+        bootstrapToast.show();
+
     });
 }
+
 
 // Event listener to remove notification when close button is clicked
 $(document).on("click", ".close-btn", function () {
@@ -51,46 +73,19 @@ $(document).on("click", ".close-btn", function () {
 });
 
 // Fetch a notification every 10 seconds
-setInterval(fetchNotification, 10000);
+setInterval(fetchNotification, 5000);
 
 
 
 
 
-document.getElementById('send-alert-btn').addEventListener('click', function () {
+document.getElementById('alert-btn').addEventListener('click', function () {
     const alertType = document.getElementById('alert-type').value;
     const alertMessage = document.getElementById('alert-message').value;
 
-    // Log the alert data
-    console.log('Alert Type:', alertType);
-    console.log('Alert Message:', alertMessage);
-
-    // Send the alert data to the backend
-    $.ajax({
-        url: '/send_alert', // Replace with your backend endpoint
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({
-            type: alertType,
-            message: alertMessage
-        }),
-        success: function (response) {
-            console.log('Alert sent successfully:', response);
-
-            // Optionally, show a success message to the user
-            alert('Alert sent successfully!');
-        },
-        error: function (error) {
-            console.error('Error sending alert:', error);
-
-            // Optionally, show an error message to the user
-            alert('Failed to send alert. Please try again.');
-        }
-    });
-
-    // Close the modal
-    const alertModal = bootstrap.Modal.getInstance(document.getElementById('alertModal'));
-    alertModal.hide();
+    // Show the alert modal
+    const alertModal = new bootstrap.Modal(document.getElementById('alertModal'));
+    alertModal.show();
 });
 
 
@@ -103,8 +98,6 @@ document.getElementById('clear-notifications-btn').addEventListener('click', fun
 // Function to fetch the status of the terrain
 function fetchStatus() {
     $.get("/get_status", function(data) {
-        //Log the data to the console
-        console.log(data);
         
         // Extract data from the response or provide default values
         var temperature = data["Temperature_15Min"] + " °C";
