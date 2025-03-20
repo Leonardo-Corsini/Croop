@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +13,35 @@
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
 
-    <div class="container-fluid">
+</head>
+
+<body>
+    <!-- Topbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom py-1">
+        <div class="container-fluid">
+            <a class="navbar-brand fs-6" href="#">Farm Monitor</a>
+            <button class="btn btn-sm" id="notifications-btn" data-bs-toggle="offcanvas" data-bs-target="#notificationsOffcanvas" aria-controls="notificationsOffcanvas">
+                🔔
+            </button>
+        </div>
+    </nav>
+
+    <div class="container-fluid map-container">
         <div class="row">
             <!-- Left Panel: Terrain Status -->
             <div class="col-md-3 p-3 bg-light border-end" id="status-panel">
-                <h4>Terrain Status</h4>
-                <p id="terrain-status">Loading...</p>
+                <h4 class="text-center">Terrain Status</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Soil Moisture</h6>
+                        <p id="soil-moisture" class="card-text">Loading...</p>
+                        <h6 class="card-title">Temperature</h6>
+                        <p id="temperature" class="card-text">Loading...</p>
+                        <h6 class="card-title">Health Status</h6>
+                        <p id="health-status" class="card-text">Loading...</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Main Content: Map -->
@@ -30,18 +51,55 @@
         </div>
     </div>
 
-    <!-- Floating Notification Card -->
-    <div id="notification-card">
-        <h5>🔔 Notifications 🔔</h5>
-        <ul id="notification-list"></ul>
+    <!-- Notifications Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="notificationsOffcanvas" aria-labelledby="notificationsOffcanvasLabel" data-bs-scroll="true">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="notificationsOffcanvasLabel">🔔 Notifications</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body d-flex flex-column">
+            <ul id="notification-list" class="list-group flex-grow-1 mb-3">
+                <!-- Notifications will be dynamically added here -->
+            </ul>
+            <button id="clear-notifications-btn" class="btn btn-danger w-100">Clear All</button>
+        </div>
     </div>
 
-
     <!-- Floating Alert Button -->
-    <button id="alert-btn">⚠</button>
+    <button id="alert-btn" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#alertModal">⚠</button>
 
-
-
+    <!-- Alert Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alertModalLabel">Select Alert Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="alert-form">
+                        <div class="mb-3">
+                            <label for="alert-type" class="form-label">Alert Type</label>
+                            <select class="form-select" id="alert-type" name="alert-type">
+                                <option value="fire">🔥 Fire hazard</option>
+                                <option value="pest">🐛 Pest infestation</option>
+                                <option value="flood">⚠️ Flood</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="alert-message" class="form-label">Message</label>
+                            <textarea class="form-control" id="alert-message" name="alert-message" rows="3" placeholder="Enter additional details..."></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="send-alert-btn">Send Alert</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- jQuery, Bootstrap JS, Leaflet JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -51,4 +109,5 @@
     <!-- Custom Script -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
+
 </html>

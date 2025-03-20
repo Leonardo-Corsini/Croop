@@ -4,7 +4,7 @@ body, html {
 }
 
 #map-container {
-    height: 100vh;
+    height: calc(100vh - 60px);
 }
 
 #map {
@@ -65,32 +65,6 @@ body, html {
     margin: 0;
 }
 
-#notification-list li {
-    margin-bottom: 10px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column; /* Stack the content vertically */
-    justify-content: center; /* Center the content vertically */
-    align-items: center; /* Center the content horizontally */
-    position: relative;
-    background-color: #f9f9f9; /* Light background color */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for card effect */
-}
-
-#notification-list li h4 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-}
-
-#notification-list li p {
-    margin: 10px 0;
-    font-size: 14px;
-    text-align: center;
-}
 
 #notification-list .close-btn {
     background-color: red;
