@@ -65,7 +65,7 @@ function fetchNotification() {
 
         // Create a new toast element
         var toast = `
-            <div class="toast align-items-center border-0 mb-2 toast-container" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast align-items-center toast-container-class" role="alert" aria-live="assertive" aria-atomic="true" style="width: 400px;">
                 <div class="d-flex">
                     <div class="toast-body">
                         <h4>🚨 Alert </h4> ${"["+timestamp+"]"} ${icon} ${notificationMessage}
@@ -80,7 +80,10 @@ function fetchNotification() {
 
         // Initialize and show the toast
         var toastElement = $(".toast").last()[0];
-        var bootstrapToast = new bootstrap.Toast(toastElement);
+        var bootstrapToast = new bootstrap.Toast(toastElement, {
+            autohide: true, // Ensure the toast hides automatically
+            delay: 10000    // Set the delay to 10 seconds (10000 milliseconds)
+        });
         bootstrapToast.show();
 
         // Update notification count

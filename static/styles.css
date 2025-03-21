@@ -105,8 +105,12 @@ body, html {
     background-color: var(--red-color);
 }
 
-.toast-container {
+.toast-container-class {
     background-color: var(--orange-color);
+    color: white;
+    z-index: 1000;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 #toast-container {
