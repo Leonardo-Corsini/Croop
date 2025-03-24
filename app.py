@@ -8,7 +8,7 @@ import time
 
 app = Flask(__name__, static_folder="static")
 
-API_KEY = "c4d67afa-6289-4a54-9a05-880b7069469c"
+API_KEY = ""
 
 # Sample alert messages with corresponding solutions
 FAKE_ALERTS = {
